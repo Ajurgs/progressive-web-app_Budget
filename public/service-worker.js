@@ -5,6 +5,7 @@ const FILES_TO_CACHE = [
     "./index.js",
     "./db.js",
     "./manifest.json",
+    "./styles.css",
     "./icons/icon-192X192.png",
     "./icons/icon-512X512.png",
 ]
@@ -15,7 +16,6 @@ const DATA_CACHE_NAME = "data-cache-v1";
 self.addEventListener("install",function(e){
     e.waitUntil(
         caches.open(CACHE_NAME).then((cache)=>{
-            console.log("your files were pre-cached successfully");
             return cache.addAll(FILES_TO_CACHE);
         }).catch((err)=>console.log(err))
     )
