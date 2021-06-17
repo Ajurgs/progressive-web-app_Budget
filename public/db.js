@@ -15,8 +15,15 @@ request.onsuccess = function (e){
         checkDatabase();
     }
 }
+request.onerror = function(event){
+    console.log(event.target.errorCode);
+}
 
-
+function saveRecord(record){
+    const transaction = db.transaction(["BudgetStore"],"readwrite");
+    const budgetStore = transaction.objectStore("BudgetStore");
+    budgetStore.add(record);
+}
 
 function checkDatabase(){
     const transaction = db.transaction(["BudgetStore"],"readwrite");
@@ -48,3 +55,5 @@ function checkDatabase(){
         }
     }
 }
+
+window.addEventListener("online",checkDatabase);
