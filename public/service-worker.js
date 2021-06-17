@@ -4,7 +4,7 @@ const FILES_TO_CACHE = [
     "/",
     "/index.js",
     "/db.js",
-    "/manifest.webmanifest",
+    "/manifest.json",
     "/icons/icon-192X192.png",
     "/icons/icon-512X512.png",
 ]
@@ -17,14 +17,13 @@ self.addEventListener("install",function(e){
         caches.open(CACHE_NAME).then((cache)=>{
             console.log("your files were pre-cached successfully");
             return cache.addAll(FILES_TO_CACHE);
-        })
+        }).catch((err)=>console.log(err))
     )
 })
 
 self.addEventListener("activate",function(e){
     e.waitUntil(
         caches.keys().then((keyList) =>{
-            console.log(keyList);
             return Promise.all(
                 keyList.map((key)=>{
                     if(key !== CACHE_NAME && key !== DATA_CACHE_NAME){
