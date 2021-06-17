@@ -2,6 +2,7 @@
 
 const FILES_TO_CACHE = [
     "./",
+    "./index.html",
     "./index.js",
     "./db.js",
     "./manifest.json",
@@ -17,7 +18,7 @@ self.addEventListener("install",function(e){
     e.waitUntil(
         caches.open(CACHE_NAME).then((cache)=>{
             return cache.addAll(FILES_TO_CACHE);
-        }).catch((err)=>console.log(err))
+        }).then(()=>console.log("all files cached")).catch((err)=>console.log(err))
     )
 })
 
